@@ -110,7 +110,4 @@ def check_answer(message, telegarm_id, question_data):
     next_question_index = len(user_answers[telegarm_id])
     start_the_game(message, telegarm_id, next_question_index)
 
-
-
-
 bot.polling()
