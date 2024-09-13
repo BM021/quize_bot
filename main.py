@@ -5,7 +5,7 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 import database
 import buttons
 
-TOKEN = '6547849200:AAEIzUzuj6eGp8to4X-h8TIobO66fVMX4YM'
+TOKEN = ''
 
 bot = telebot.TeleBot(TOKEN)
 
