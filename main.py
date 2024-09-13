@@ -46,10 +46,10 @@ def start(message):
     checker = database.check_user(message.from_user.id)
 
     if checker:
-        bot.send_message(message.from_user.id, 'TO START GAME PRESS THE BUTTON') # start game button
+        bot.send_message(message.from_user.id, 'TO START GAME PRESS THE BUTTON')  # start game button
 
     else:
-        bot.send_message(message.from_user.id, 'Share your contact to play game') # contact button
+        bot.send_message(message.from_user.id, 'Share your contact to play game')  # contact button
         bot.register_next_step_handler(message, get_contact)
 
 
@@ -60,12 +60,11 @@ def get_contact(message):
 
         database.register_user(first_name, message.from_user.id, user_phone)
 
-        bot.send_message(message.from_user.id, 'You registered successefly') # start game button
+        bot.send_message(message.from_user.id, 'You registered successfully')  # start game button
 
     else:
-        bot.send_message(message.from_user.id, 'Plesase to share contact user the button') # contact button
+        bot.send_message(message.from_user.id, 'Please to share contact user the button')  # contact button
         bot.register_next_step_handler(message, get_contact)
-
 
 
 @bot.message_handler(content_types=['text'])
@@ -96,18 +95,18 @@ def start_the_game(message, telegram_id, question_index):
         bot.send_message(telegram_id, f'Your result is {len(questions)}/{result} correct', reply_markup=buttons.start_game())
 
 
-def check_answer(message, telegarm_id, question_data):
+def check_answer(message, telegram_id, question_data):
     user_answer = message.text
     correct_answer = question_data['correct_option']
 
     if user_answer == question_data['options'][correct_answer]:
-        user_answers[telegarm_id].append(True)
+        user_answers[telegram_id].append(True)
 
     else:
-        user_answers[telegarm_id].append(False)
+        user_answers[telegram_id].append(False)
 
+    next_question_index = len(user_answers[telegram_id])
+    start_the_game(message, telegram_id, next_question_index)
 
-    next_question_index = len(user_answers[telegarm_id])
-    start_the_game(message, telegarm_id, next_question_index)
 
 bot.polling()
